@@ -74,13 +74,6 @@ void test_status_ok_en_SHT3x_DIS_write(void) {
     TEST_ASSERT_EQUAL(STATUS_PORT_OK, _SHT3x_DIS_write(dev,&data));
 }
 
-/*
-statusPort_f _SHT3x_DIS_write(sht3x_t * const dev, uint8_t *data){
-	statusPort_f status_error;
-	status_error = SHT3x_DIS_write_PORT(dev->address, data, 2, dev->i2c_port);
-	return status_error;
-}
-*/
 
 /*
 //
