@@ -74,11 +74,6 @@ void test_status_ok_en_SHT3x_DIS_write(void) {
     TEST_ASSERT_EQUAL(STATUS_PORT_OK, _SHT3x_DIS_write(dev,&data));
 }
 
-
-/*
-//
-//ESTE TEST NO ESTA BIEN ARMADO, NO LOGRO PASAR rx_buffer_exp COMPLETO!
-//
 //TEST DE QUE _SHT3x_DIS_read_TH CARGA VALORES DE TEMPERATURA Y HUMEDAD
 void test_SHT3x_DIS_read_TH(void) {
     sht3x_t * const dev;
@@ -87,20 +82,17 @@ void test_SHT3x_DIS_read_TH(void) {
 
     //Temp 25 0x6666 CRC 93
     //Hum  80 0xCCCC CRC A5
-    uint8_t rx_buffer[6] = {0x00,0x00,0x0,0x00,0x00,0x00};
     uint8_t rx_buffer_exp[6] = {0x66,0x66,0x93,0xCC,0xCC,0xA5};
 
     statusPort_f status_error;
     
-    //SHT3x_DIS_read_PORT_ExpectWithArrayAndReturn(dev->address, rx_buffer_exp, 6, 6, dev->i2c_port, 1, STATUS_PORT_OK);
     SHT3x_DIS_read_PORT_ExpectAndReturn(dev->address, rx_buffer_exp, 6, dev->i2c_port, STATUS_PORT_OK);
     SHT3x_DIS_read_PORT_IgnoreArg_pData();
-    SHT3x_DIS_read_PORT_ReturnThruPtr_pData(rx_buffer_exp);
+    SHT3x_DIS_read_PORT_ReturnArrayThruPtr_pData(rx_buffer_exp, sizeof(rx_buffer_exp));
 
     status_error = _SHT3x_DIS_read_TH(dev,&temp,&hum);
 
     TEST_ASSERT_EQUAL(STATUS_PORT_OK, status_error);
-    //TEST_ASSERT_EQUAL(25, temp);
-    //TEST_ASSERT_EQUAL(80, hum);
+    TEST_ASSERT_EQUAL(25, temp);
+    TEST_ASSERT_EQUAL(80, hum);
 }
-*/
