@@ -140,7 +140,6 @@ statusPort_f _SHT3x_DIS_write(sht3x_t * const dev, uint8_t *data){
 }
 
 statusPort_f _SHT3x_DIS_read_TH(sht3x_t * const dev, uint32_t *temp,uint32_t *hum){
-	
 	statusPort_f status_error;
 	uint8_t rx_buffer[6];
 
@@ -159,16 +158,14 @@ statusPort_f _SHT3x_DIS_read_TH(sht3x_t * const dev, uint32_t *temp,uint32_t *hu
 	if (_SHT3x_DIS_CheckCrc(&rx_buffer[0], 2, rx_buffer[2]) == 0){
 		*temp = (uint32_t)(((rx_buffer[0]*256) + rx_buffer[1])*175)/65535.0-45.0;
 	} else {
-		//*temp = 255; //Error
-		*temp = rx_buffer[0]; //Error
+		*temp = 255; //Error
 	}
 
 	//CheckCrc
 	if (_SHT3x_DIS_CheckCrc(&rx_buffer[3], 2, rx_buffer[5]) == 0){
 		*hum =  (uint32_t)(((rx_buffer[3]*256) + rx_buffer[4]))*100.0/65535.0;
 	} else {
-		//*hum = 255; //Error
-		*hum = rx_buffer[5]; //Error
+		*hum = 255; //Error
 	}
 
 	return STATUS_PORT_OK;
